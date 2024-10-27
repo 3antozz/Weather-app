@@ -18,8 +18,12 @@ import "./styles.css";
     updateLocalStorage(lastLocation, unit);
     root.classList.add("light");
   } else {
-    const theme = localStorage.getItem("theme");
-    root.classList.add(theme);
+    if(localStorage.theme) {
+      const theme = localStorage.getItem("theme");
+      root.classList.add(theme);
+    } else {
+      root.classList.add("light");
+    }
     unit = localStorage.getItem("unit");
     if (unit === "metric") {
       unitButton.textContent = "C°";
@@ -215,7 +219,7 @@ function displayNextDaysWeather(icon, dayData, unit) {
   humidity.textContent = `Humidity: ${dayData.humidity}%`;
 
   tempDiv.append(maxTemp, minTemp);
-  dayDiv.append(img, date, condition, tempDiv, humidity);
+  dayDiv.append(date, img,  condition, tempDiv, humidity);
   daysDiv.appendChild(dayDiv);
 }
 
