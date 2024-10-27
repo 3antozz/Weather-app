@@ -27,6 +27,9 @@ module.exports = {
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
         type: "asset/resource",
+        generator: {
+          filename: 'icons/[name][ext]', // This keeps the icons in a folder named "icons" in dist
+        },
       },
     ],
   },
