@@ -12,9 +12,9 @@ import "./styles.css";
   let lastLocation;
   if (!localStorage || localStorage.length === 0 || !localStorage.lastLocation) {
     unit = "metric";
-    lastLocation = "Hadjout";
+    lastLocation = "Ahmer El Ain";
     loading.classList.add("visible");
-    getWeather(allIcons, "Hadjout", unit);
+    getWeather(allIcons, lastLocation, unit);
     updateLocalStorage(lastLocation, unit);
     root.classList.add("light");
   } else {
