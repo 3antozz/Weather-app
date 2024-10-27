@@ -1,15 +1,36 @@
 import "./styles.css";
 
 (function init() {
-  let unit = "metric";
-  let lastLocation = "Hadjout";
   const button = document.querySelector(".search");
   const unitButton = document.querySelector(".unit");
   const icons = loadIcons();
   const allIcons = icons.getIcons();
   const loading = document.querySelector(".loading");
-  loading.classList.add("visible");
-  getWeather(allIcons, "Hadjout", unit);
+  const root = document.documentElement;
+  const themeButton = document.querySelector(".switch-theme");
+  let unit;
+  let lastLocation;
+  if (!localStorage || localStorage.length === 0 || !localStorage.lastLocation) {
+    unit = "metric";
+    lastLocation = "Hadjout";
+    loading.classList.add("visible");
+    getWeather(allIcons, "Hadjout", unit);
+    updateLocalStorage(lastLocation, unit);
+    root.classList.add("light");
+  } else {
+    const theme = localStorage.getItem("theme");
+    root.classList.add(theme);
+    unit = localStorage.getItem("unit");
+    if (unit === "metric") {
+      unitButton.textContent = "C°";
+    } else {
+      unitButton.textContent = "F°";
+    }
+    lastLocation = localStorage.getItem("lastLocation");
+    loading.classList.add("visible");
+    getWeather(allIcons, lastLocation, unit);
+  }
+
   button.addEventListener("click", async (event) => {
     event.preventDefault();
     const input = document.querySelector("#location");
@@ -21,6 +42,7 @@ import "./styles.css";
       if (location) {
         lastLocation = location;
         input.value = "";
+        localStorage.setItem("lastLocation", lastLocation);
       }
     }
   });
@@ -36,21 +58,25 @@ import "./styles.css";
       getWeather(allIcons, lastLocation, unit);
       unitButton.textContent = "C°";
     }
+    localStorage.setItem("unit", unit);
   });
-
-  const root = document.documentElement;
-
-  const themeButton = document.querySelector(".switch-theme");
 
   themeButton.addEventListener("click", () => {
       if (root.className === "light") {
           root.className = "dark";
+          localStorage.setItem("theme", "dark");
       }
       else {
           root.className = "light";
+          localStorage.setItem("theme", "light");
       }
   })
 })();
+
+function updateLocalStorage (location, unit) {
+  localStorage.setItem("lastLocation", location);
+  localStorage.setItem("unit", unit);
+}
 
 function loadIcons() {
   const icons = {};
