@@ -37,7 +37,7 @@ This was a project assignment from The Odin Project's Javascript course. The int
 ### 1. Clone the Repository
 
 ```bash
-git https://github.com/3antozz/Battleship
+git https://github.com/3antozz/Weather-app
 cd Weather-app
 ```
 
