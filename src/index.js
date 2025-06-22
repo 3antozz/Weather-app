@@ -216,7 +216,7 @@ function displayNextDaysWeather(icon, dayData, unit, index = 1) {
   if(index === 0) {
     date.textContent = "Today"
   }
-  date.className = "text-[clamp(1.05rem,_3.8vw,_1.4rem)] font-semibold text-left w-18 max-w-40"
+  date.className = "text-[clamp(1.05rem,_3.8vw,_1.4rem)] font-semibold text-center w-18 max-w-40"
 
   const condition = document.createElement("p");
   condition.textContent = dayData.conditions;
